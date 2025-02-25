@@ -2,15 +2,18 @@
 import requests
 import json
 
+result = ''
 s = requests.Session()
 
 r = s.post('http://web-11.challs.olicyber.it/login', json={'username':'admin', 'password':'admin'})
 
-csrf_1 = r.json().get('csrf')
+for i in range(0, 4):
+    csrf = r.json().get('csrf')
+    r = s.get(f'http://web-11.challs.olicyber.it/flag_piece?index={i}&csrf={csrf}')
+    result = result + r.json().get('flag_piece')
 
-url = 'http://web-11.challs.olicyber.it/flag_piece?index=0&csrf=' + str(csrf_1)
-r = s.get(f'http://web-11.challs.olicyber.it/flag_piece?index=0&csrf={csrf_1}')
-print(r.text)
+print(result)
+
 
 
 
