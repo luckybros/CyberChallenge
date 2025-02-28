@@ -8,7 +8,5 @@ def has_comments(s):
 r = requests.get('http://web-14.challs.olicyber.it/')
 soup = BeautifulSoup(r.text, 'html.parser')
 
-result = ""
-
 for item in soup.findAll(string=has_comments):
     print(item)
